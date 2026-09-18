@@ -1,0 +1,99 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 58/320 [00:00<00:00, 578.74it/s]Loading weights:  68%|██████▊   | 218/320 [00:00<00:00, 1177.42it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 1192.62it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+fail test_0077_replace_text           calls= 1 r=+0.10  15.4s
+fail test_0034_count_words            calls= 2 r=+0.08  29.0s
+fail test_0025_cut_field              calls= 2 r=+0.08  29.4s
+fail test_0020_find_by_content        calls= 2 r=+0.08  29.8s
+PASS test_0008_delete_pattern         calls= 3 r=+1.06  37.0s
+fail test_0036_find_largest           calls= 3 r=+0.06  37.2s
+fail test_0062_char_count             calls= 3 r=+0.06  37.9s
+PASS test_0033_count_lines            calls= 3 r=+1.06  38.2s
+fail test_0031_line_number_match      calls= 4 r=+0.04  43.8s
+fail test_0017_tail_lines             calls= 5 r=+0.02  54.9s
+PASS test_0026_gzip_file              calls= 3 r=+1.06  42.9s
+fail test_0037_rename_ext             calls= 6 r=+0.00  71.7s
+PASS test_0056_concat                 calls= 6 r=+1.00  72.5s
+fail test_0021_json_extract           calls= 6 r=+0.00  72.6s
+fail test_0030_dir_sizes              calls= 8 r=-0.14  85.2s
+fail test_0069_find_largest           calls= 8 r=-0.14  85.4s
+fail test_0043_sum_column             calls= 8 r=-0.14  86.3s
+PASS test_0009_sort_unique            calls= 8 r=+0.86  87.2s
+PASS test_0055_append_line            calls= 8 r=+0.86  88.0s
+fail test_0070_rename_ext             calls= 8 r=-0.14  88.9s
+PASS test_0075_sort_unique            calls= 8 r=+0.86  89.4s
+fail test_0004_rename_ext             calls= 8 r=-0.14  90.2s
+PASS test_0006_copy_file              calls= 8 r=+0.86  91.2s
+fail test_0060_empty_files            calls= 8 r=-0.14  91.8s
+fail test_0013_tar_extract            calls= 8 r=-0.14  92.5s
+PASS test_0011_replace_text           calls= 8 r=+0.86  93.0s
+PASS test_0019_count_files_ext        calls= 8 r=+0.86  93.9s
+PASS test_0078_word_freq              calls= 8 r=+0.86  94.6s
+fail test_0074_delete_pattern         calls= 8 r=-0.14  95.2s
+PASS test_0023_concat                 calls= 8 r=+0.86  95.6s
+fail test_0064_line_number_match      calls= 8 r=-0.14  95.9s
+fail test_0073_move_file              calls= 8 r=-0.14  97.1s
+fail test_0022_append_line            calls= 8 r=-0.14  97.8s
+PASS test_0059_gzip_file              calls= 5 r=+1.02  69.8s
+fail test_0042_sort_unique            calls= 8 r=-0.14  87.5s
+fail test_0066_count_lines            calls= 1 r=+0.10  18.3s
+fail test_0067_count_words            calls= 1 r=+0.10  18.9s
+fail test_0002_grep_count             calls= 1 r=+0.10  12.5s
+fail test_0045_word_freq              calls= 2 r=+0.08  23.4s
+fail test_0061_reverse_lines          calls= 8 r=-0.14  79.4s
+PASS test_0005_mkdir_tree             calls= 8 r=+0.86  78.7s
+PASS test_0015_chmod_exec             calls= 8 r=+0.86  78.8s
+PASS test_0068_grep_count             calls= 8 r=+0.86  79.6s
+PASS test_0040_move_file              calls= 8 r=+0.86  80.1s
+PASS test_0049_symlink                calls= 3 r=+1.06  33.2s
+PASS test_0039_copy_file              calls= 3 r=+1.06  33.7s
+fail test_0010_sum_column             calls= 1 r=+0.10  17.0s
+PASS test_0016_symlink                calls= 4 r=+1.04  39.6s
+fail test_0052_count_files_ext        calls= 4 r=+0.04  39.9s
+fail test_0054_json_extract           calls= 8 r=-0.14  82.2s
+PASS test_0041_delete_pattern         calls= 4 r=+1.04  49.8s
+fail test_0000_count_lines            calls= 1 r=+0.10  28.4s
+PASS test_0027_empty_files            calls= 4 r=+1.04  51.7s
+fail test_0047_tar_create             calls= 6 r=+0.00  67.6s
+fail test_0053_find_by_content        calls= 8 r=-0.14  84.2s
+fail test_0058_cut_field              calls= 6 r=+0.00  68.6s
+fail test_0029_char_count             calls= 1 r=+0.10  28.5s
+PASS test_0038_mkdir_tree             calls= 8 r=+0.86  81.1s
+fail test_0007_move_file              calls= 8 r=-0.14  82.4s
+fail test_0063_dir_sizes              calls= 2 r=+0.08  39.0s
+PASS test_0048_chmod_exec             calls= 8 r=+0.86  84.8s
+fail test_0046_tar_extract            calls= 8 r=-0.14  85.0s
+fail test_0051_head_lines             calls= 8 r=-0.14  86.2s
+fail test_0012_word_freq              calls= 8 r=-0.14  86.7s
+PASS test_0071_mkdir_tree             calls= 8 r=+0.86  87.5s
+PASS test_0072_copy_file              calls= 8 r=+0.86  87.5s
+fail test_0050_tail_lines             calls= 8 r=-0.14  89.4s
+fail test_0003_find_largest           calls= 8 r=-0.14  90.4s
+fail test_0028_reverse_lines          calls= 8 r=-0.14  90.6s
+fail test_0057_max_number             calls= 8 r=-0.14  91.0s
+fail test_0001_count_words            calls= 4 r=+0.04  59.0s
+PASS test_0035_grep_count             calls= 8 r=+0.86  74.5s
+fail test_0018_head_lines             calls= 8 r=-0.14  74.6s
+PASS test_0014_tar_create             calls= 8 r=+0.86  72.3s
+PASS test_0044_replace_text           calls= 6 r=+1.00  65.0s
+PASS test_0032_touch_many             calls= 8 r=+0.86  73.2s
+fail test_0079_tar_extract            calls= 8 r=-0.14  71.3s
+fail test_0024_max_number             calls= 8 r=-0.14  71.5s
+fail test_0076_sum_column             calls= 8 r=-0.14  72.2s
+PASS test_0065_touch_many             calls= 8 r=+0.86  72.2s
+{
+  "n": 80,
+  "pass_rate": 0.3875,
+  "mean_reward": 0.3277,
+  "mean_calls": 6.05,
+  "finished_cleanly_rate": 0.4125,
+  "errors": 0,
+  "mean_judge": 0.38,
+  "seconds": 5390.1,
+  "by_difficulty": {},
+  "name": "0_base",
+  "backend": "Qwen/Qwen3.5-0.8B",
+  "wall_seconds": 186.4
+}
+by category: {"append_line": {"n": 2, "pass_rate": 0.5}, "char_count": {"n": 2, "pass_rate": 0.0}, "chmod_exec": {"n": 2, "pass_rate": 1.0}, "concat": {"n": 2, "pass_rate": 1.0}, "copy_file": {"n": 3, "pass_rate": 1.0}, "count_files_ext": {"n": 2, "pass_rate": 0.5}, "count_lines": {"n": 3, "pass_rate": 0.333}, "count_words": {"n": 3, "pass_rate": 0.0}, "cut_field": {"n": 2, "pass_rate": 0.0}, "delete_pattern": {"n": 3, "pass_rate": 0.667}, "dir_sizes": {"n": 2, "pass_rate": 0.0}, "empty_files": {"n": 2, "pass_rate": 0.5}, "find_by_content": {"n": 2, "pass_rate": 0.0}, "find_largest": {"n": 3, "pass_rate": 0.0}, "grep_count": {"n": 3, "pass_rate": 0.667}, "gzip_file": {"n": 2, "pass_rate": 1.0}, "head_lines": {"n": 2, "pass_rate": 0.0}, "json_extract": {"n": 2, "pass_rate": 0.0}, "line_number_match": {"n": 2, "pass_rate": 0.0}, "max_number": {"n": 2, "pass_rate": 0.0}, "mkdir_tree": {"n": 3, "pass_rate": 1.0}, "move_file": {"n": 3, "pass_rate": 0.333}, "rename_ext": {"n": 3, "pass_rate": 0.0}, "replace_text": {"n": 3, "pass_rate": 0.667}, "reverse_lines": {"n": 2, "pass_rate": 0.0}, "sort_unique": {"n": 3, "pass_rate": 0.667}, "sum_column": {"n": 3, "pass_rate": 0.0}, "symlink": {"n": 2, "pass_rate": 1.0}, "tail_lines": {"n": 2, "pass_rate": 0.0}, "tar_create": {"n": 2, "pass_rate": 0.5}, "tar_extract": {"n": 3, "pass_rate": 0.0}, "touch_many": {"n": 2, "pass_rate": 1.0}, "word_freq": {"n": 3, "pass_rate": 0.333}}

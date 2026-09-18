@@ -1,0 +1,148 @@
+{
+  "n": 80,
+  "pass_rate": 0.3875,
+  "mean_reward": 0.3277,
+  "mean_calls": 6.05,
+  "finished_cleanly_rate": 0.4125,
+  "errors": 0,
+  "mean_judge": 0.38,
+  "seconds": 5390.1,
+  "by_category": {
+    "append_line": {
+      "n": 2,
+      "pass_rate": 0.5
+    },
+    "char_count": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "chmod_exec": {
+      "n": 2,
+      "pass_rate": 1.0
+    },
+    "concat": {
+      "n": 2,
+      "pass_rate": 1.0
+    },
+    "copy_file": {
+      "n": 3,
+      "pass_rate": 1.0
+    },
+    "count_files_ext": {
+      "n": 2,
+      "pass_rate": 0.5
+    },
+    "count_lines": {
+      "n": 3,
+      "pass_rate": 0.333
+    },
+    "count_words": {
+      "n": 3,
+      "pass_rate": 0.0
+    },
+    "cut_field": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "delete_pattern": {
+      "n": 3,
+      "pass_rate": 0.667
+    },
+    "dir_sizes": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "empty_files": {
+      "n": 2,
+      "pass_rate": 0.5
+    },
+    "find_by_content": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "find_largest": {
+      "n": 3,
+      "pass_rate": 0.0
+    },
+    "grep_count": {
+      "n": 3,
+      "pass_rate": 0.667
+    },
+    "gzip_file": {
+      "n": 2,
+      "pass_rate": 1.0
+    },
+    "head_lines": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "json_extract": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "line_number_match": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "max_number": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "mkdir_tree": {
+      "n": 3,
+      "pass_rate": 1.0
+    },
+    "move_file": {
+      "n": 3,
+      "pass_rate": 0.333
+    },
+    "rename_ext": {
+      "n": 3,
+      "pass_rate": 0.0
+    },
+    "replace_text": {
+      "n": 3,
+      "pass_rate": 0.667
+    },
+    "reverse_lines": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "sort_unique": {
+      "n": 3,
+      "pass_rate": 0.667
+    },
+    "sum_column": {
+      "n": 3,
+      "pass_rate": 0.0
+    },
+    "symlink": {
+      "n": 2,
+      "pass_rate": 1.0
+    },
+    "tail_lines": {
+      "n": 2,
+      "pass_rate": 0.0
+    },
+    "tar_create": {
+      "n": 2,
+      "pass_rate": 0.5
+    },
+    "tar_extract": {
+      "n": 3,
+      "pass_rate": 0.0
+    },
+    "touch_many": {
+      "n": 2,
+      "pass_rate": 1.0
+    },
+    "word_freq": {
+      "n": 3,
+      "pass_rate": 0.333
+    }
+  },
+  "by_difficulty": {},
+  "name": "0_base",
+  "backend": "Qwen/Qwen3.5-0.8B",
+  "wall_seconds": 186.4
+}
