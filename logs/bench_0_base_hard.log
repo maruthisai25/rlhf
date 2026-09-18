@@ -1,0 +1,67 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<02:10,  2.45it/s]Loading weights:  12%|█▏        | 37/320 [00:00<00:02, 94.83it/s]Loading weights:  23%|██▎       | 75/320 [00:00<00:01, 167.63it/s]Loading weights:  35%|███▌      | 112/320 [00:00<00:00, 220.56it/s]Loading weights:  46%|████▋     | 148/320 [00:00<00:00, 256.98it/s]Loading weights:  58%|█████▊    | 185/320 [00:00<00:00, 280.07it/s]Loading weights:  70%|██████▉   | 223/320 [00:01<00:00, 307.35it/s]Loading weights:  81%|████████  | 258/320 [00:01<00:00, 304.48it/s]Loading weights:  94%|█████████▍| 301/320 [00:01<00:00, 332.70it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 241.74it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+PASS htest_0009_chmod_exec+cut_field  calls= 3 r=+1.06  27.8s
+PASS htest_0002_concat+delete_pattern calls= 5 r=+1.02  32.5s
+PASS htest_0004_mkdir_tree+replace_text calls= 6 r=+1.00  38.2s
+PASS htest_0005_head_lines+chmod_exec calls= 8 r=+0.86  48.2s
+fail htest_0000_tar_create+reverse_lines calls= 8 r=-0.14  48.7s
+PASS htest_0003_word_freq+mkdir_tree  calls= 8 r=+0.86  49.6s
+fail htest_0001_symlink+dir_sizes     calls= 8 r=-0.14  50.2s
+fail htest_0006_move_file+word_freq   calls= 8 r=-0.14  50.9s
+fail htest_0007_rename_ext+grep_count calls= 8 r=-0.14  51.4s
+fail htest_0008_gzip_file+word_freq   calls= 8 r=-0.14  52.2s
+fail htest_0010_count_words+tar_extract calls= 8 r=-0.14  52.5s
+fail htest_0011_chmod_exec+cut_field  calls= 8 r=-0.14  53.5s
+fail htest_0012_mkdir_tree+delete_pattern calls= 8 r=-0.14  53.8s
+fail htest_0014_dir_sizes+reverse_lines calls= 8 r=-0.14  54.4s
+fail htest_0013_reverse_lines+char_count calls= 8 r=-0.14  54.6s
+fail htest_0018_delete_pattern+json_extract calls= 1 r=+0.10  18.0s
+fail htest_0015_line_number_match+reverse_lines calls= 8 r=-0.14  55.6s
+fail htest_0031_gzip_file+find_largest calls= 2 r=+0.08  21.8s
+fail htest_0023_symlink+mkdir_tree    calls= 2 r=+0.08  22.1s
+PASS htest_0030_tail_lines+grep_count calls= 2 r=+1.08  22.1s
+PASS htest_0016_empty_files+gzip_file calls= 8 r=+0.86  53.0s
+fail htest_0029_delete_pattern+char_count calls= 3 r=+0.06  25.3s
+PASS htest_0021_copy_file+gzip_file   calls= 4 r=+1.04  28.8s
+fail htest_0017_cut_field+replace_text calls= 8 r=-0.14  47.9s
+fail htest_0033_gzip_file+delete_pattern calls= 3 r=+0.06  14.7s
+PASS htest_0032_tar_create+count_words calls= 5 r=+1.02  30.1s
+fail htest_0020_count_words+cut_field calls= 8 r=-0.14  39.6s
+fail htest_0019_tar_extract+json_extract calls= 8 r=-0.14  39.9s
+PASS htest_0024_copy_file+grep_count  calls= 8 r=+0.86  41.0s
+PASS htest_0022_max_number+replace_text calls= 8 r=+0.86  41.5s
+fail htest_0025_count_lines+rename_ext calls= 8 r=-0.14  42.2s
+fail htest_0026_cut_field+symlink     calls= 8 r=-0.14  42.6s
+fail htest_0027_tail_lines+dir_sizes  calls= 8 r=-0.14  43.3s
+fail htest_0028_find_largest+reverse_lines calls= 8 r=-0.14  43.5s
+PASS htest_0034_concat+sort_unique    calls= 5 r=+1.02  24.5s
+fail htest_0037_replace_text+gzip_file calls= 4 r=+0.04  21.2s
+PASS htest_0043_copy_file+tar_extract calls= 2 r=+1.08  16.5s
+fail htest_0035_gzip_file+dir_sizes   calls= 8 r=-0.14  34.5s
+fail htest_0047_count_words+symlink   calls= 3 r=+0.06  21.2s
+fail htest_0036_find_by_content+replace_text calls= 8 r=-0.14  35.5s
+fail htest_0038_mkdir_tree+char_count calls= 8 r=-0.14  36.2s
+fail htest_0039_line_number_match+delete_pattern calls= 8 r=-0.14  35.2s
+PASS htest_0041_sort_unique+count_words calls= 8 r=+0.86  36.3s
+fail htest_0040_sort_unique+find_by_content calls= 8 r=-0.14  36.8s
+PASS htest_0045_count_lines+sort_unique calls= 6 r=+1.00  33.4s
+fail htest_0044_find_largest+chmod_exec calls= 8 r=-0.14  34.6s
+PASS htest_0046_head_lines+symlink    calls= 8 r=+0.86  34.8s
+fail htest_0042_mkdir_tree+count_files_ext calls= 8 r=-0.14  35.3s
+{
+  "n": 48,
+  "pass_rate": 0.3333,
+  "mean_reward": 0.2567,
+  "mean_calls": 6.5,
+  "finished_cleanly_rate": 0.3333,
+  "errors": 0,
+  "mean_judge": 0.3729,
+  "seconds": 1827.7,
+  "by_difficulty": {},
+  "name": "0_base_hard",
+  "backend": "Qwen/Qwen3.5-0.8B",
+  "wall_seconds": 121.7
+}
+by category: {"composite": {"n": 48, "pass_rate": 0.333}}

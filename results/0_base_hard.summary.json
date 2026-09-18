@@ -1,0 +1,20 @@
+{
+  "n": 48,
+  "pass_rate": 0.3333,
+  "mean_reward": 0.2567,
+  "mean_calls": 6.5,
+  "finished_cleanly_rate": 0.3333,
+  "errors": 0,
+  "mean_judge": 0.3729,
+  "seconds": 1827.7,
+  "by_category": {
+    "composite": {
+      "n": 48,
+      "pass_rate": 0.333
+    }
+  },
+  "by_difficulty": {},
+  "name": "0_base_hard",
+  "backend": "Qwen/Qwen3.5-0.8B",
+  "wall_seconds": 121.7
+}
