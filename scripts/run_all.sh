@@ -15,10 +15,10 @@ export TERMBENCH_JUDGE=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 mkdir -p logs results
 log() { echo "[$(date +%H:%M:%S)] $*"; }
-bench() {  # name split adapter-chain
+bench() {  # name split adapter-chain [batch]
   [ -f "results/$1.summary.json" ] && { log "skip benchmark $1 (exists)"; return; }
-  log "benchmark $1  adapter=${3:-none}  split=$2"
-  $PY -u scripts/run_benchmark.py --name "$1" --split "$2" ${3:+--adapter "$3"} --batch 32 > "logs/bench_$1.log" 2>&1
+  log "benchmark $1  adapter=${3:-none}  split=$2  batch=${4:-32}"
+  $PY -u scripts/run_benchmark.py --name "$1" --split "$2" ${3:+--adapter "$3"} --batch "${4:-32}" > "logs/bench_$1.log" 2>&1
   grep -E '"pass_rate"|"mean_calls"|"mean_judge"' "logs/bench_$1.log"
 }
 
@@ -33,9 +33,10 @@ fi
 [ -f tasks/hard_test_raw.jsonl ] || $PY scripts/gen_tasks.py --hard --validate
 [ -f tasks/grpo_mix.jsonl ]      || $PY -u scripts/filter_hard.py --workers 3 --attempts 2 > logs/filter_hard.log 2>&1
 
-# 1. baseline
-bench 0_base      tasks/test.jsonl      ""
-bench 0_base_hard tasks/hard_test.jsonl ""
+# 1. baseline (batch 16: the base model runs to the 8-turn cap, and 32 long episodes in lockstep
+#    grow to ~13 GB and page the judge out of VRAM)
+bench 0_base      tasks/test.jsonl      "" 16
+bench 0_base_hard tasks/hard_test.jsonl "" 16
 
 # 2. SFT
 [ -f data/sft.jsonl ] || $PY -u scripts/make_sft_data.py --workers 3 --attempts 3 > logs/make_sft_data.log 2>&1
