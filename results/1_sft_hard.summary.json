@@ -1,0 +1,20 @@
+{
+  "n": 48,
+  "pass_rate": 0.8333,
+  "mean_reward": 0.8696,
+  "mean_calls": 3.77,
+  "finished_cleanly_rate": 0.9167,
+  "errors": 0,
+  "mean_judge": 0.8458,
+  "seconds": 1203.0,
+  "by_category": {
+    "composite": {
+      "n": 48,
+      "pass_rate": 0.833
+    }
+  },
+  "by_difficulty": {},
+  "name": "1_sft_hard",
+  "backend": "Qwen/Qwen3.5-0.8B+runs/sft/final",
+  "wall_seconds": 49.1
+}
