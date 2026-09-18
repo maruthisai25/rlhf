@@ -15,7 +15,7 @@ in order); the paper-style write-up with all numbers is **[REPORT.md](REPORT.md)
 
 | Stage | Adapter | Single-step pass (n=80) | Calls | Composite pass (n=48) | Calls | Judge |
 |---|---|---|---|---|---|---|
-| Base Qwen3.5-0.8B | – | 38.8% [29, 50] | 6.05 | not measured | – | 0.38 |
+| Base Qwen3.5-0.8B | – | 38.8% [29, 50] | 6.05 | 33.3% [22, 47] | 6.50 | 0.38 |
 | SFT | `runs/sft/final` | **97.5%** [91, 99] | 2.20 | **83.3%** [70, 91] | 3.77 | 0.97 |
 | GRPO run 1 | `sft → runs/grpo/final` | 93.8% [86, 97] | 1.34 | 79.2% [66, 88] | 2.71 | 0.94 |
 | GRPO run 2 (RLAIF) | `sft → runs/grpo2/final` | **98.8%** [93, 100] | 1.77 | **83.3%** [70, 91] | 2.73 | 0.99 |

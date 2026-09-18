@@ -75,7 +75,7 @@ mean 2.24 calls, short final messages. Stored in TRL's tool-calling conversation
 schema and tool outputs masked), 3 epochs, lr 1e-4, cosine, effective batch 16. 6.7 minutes.
 Eval loss 0.085 → 0.066.
 **Effect.** 38.8% → 97.5% on single-step tasks, 6.05 → 2.20 calls, 100% clean finishes.
-83.3% on composite tasks it never saw.
+33.3% → 83.3% on composite tasks it never saw.
 
 ## 7. Making evaluation fast
 
@@ -131,7 +131,7 @@ report is from the corrected re-run.
 
 | stage | pass (easy / hard) | calls (easy / hard) | cost |
 |---|---|---|---|
-| base | 38.8% / – | 6.05 / – | – |
+| base | 38.8% / 33.3% | 6.05 / 6.50 | – |
 | SFT | 97.5% / 83.3% | 2.20 / 3.77 | 25 min data + 7 min train |
 | GRPO run 2 | 98.8% / 83.3% | 1.77 / 2.73 | 10 min hard tasks + 18 min train |
 

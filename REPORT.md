@@ -9,7 +9,7 @@ multi-turn terminal agent using a fully local pipeline: (i) a benchmark of 80 si
 48 composite shell tasks with exact bash checkers, (ii) supervised fine-tuning (SFT) on 320
 trajectories distilled from a 9B teacher, and (iii) Group Relative Policy Optimization (GRPO)
 with a verifiable execution reward and an AI judge (RLAIF). SFT raises the pass rate from
-38.8% to 97.5% on single-step tasks and reaches 83.3% on composite tasks. A first GRPO run
+38.8% to 97.5% on single-step tasks and from 33.3% to 83.3% on composite tasks. A first GRPO run
 regressed (93.8% / 79.2%): with the training set saturated after SFT, group-normalised
 advantages amplified shaping noise and the policy drifted toward long, prose-heavy
 completions. A second run with Dr. GRPO normalisation, a small KL penalty, a pass-gated
@@ -104,7 +104,7 @@ or slightly exceeds SFT, run 1 regresses. Wilson 95% CIs.*
 
 | Stage | Easy pass [95% CI] | Calls | Final msg | Judge | Hard pass [95% CI] | Calls | Judge |
 |---|---|---|---|---|---|---|---|
-| Base Qwen3.5-0.8B | 38.8% [29, 50] | 6.05 | 41% | 0.38 | not measured | - | - |
+| Base Qwen3.5-0.8B | 38.8% [29, 50] | 6.05 | 41% | 0.38 | 33.3% [22, 47] | 6.50 | 0.37 |
 | SFT | 97.5% [91, 99] | 2.20 | 100% | 0.97 | 83.3% [70, 91] | 3.77 | 0.85 |
 | GRPO run 1 | 93.8% [86, 97] | 1.34 | 96% | 0.94 | 79.2% [66, 88] | 2.71 | 0.80 |
 | GRPO run 2 | **98.8%** [93, 100] | 1.77 | 100% | **0.99** | **83.3%** [70, 91] | 2.73 | 0.84 |
