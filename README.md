@@ -94,9 +94,12 @@ nohup setsid bash scripts/run_all.sh > logs/run_all.log 2>&1 &   # ~2 h on a 409
 bash scripts/status.sh                             # progress + GPU
 ```
 
-`run_all.sh` skips stages whose outputs exist, so it doubles as the recipe. Individual stages
-are the scripts above; every benchmark writes `results/<name>.episodes.jsonl` (full
-transcripts) and `results/<name>.summary.json`.
+`run_all.sh` runs every stage in order, including GRPO run 1 as the control arm, and skips a
+stage when its output already exists. All outputs are committed, so in a fresh clone nothing
+runs until you ask for it: `FRESH=1 bash scripts/run_all.sh` wipes the derived artefacts
+(tasks, SFT data, adapters, results, logs) and reproduces the whole thing. Every benchmark
+writes `results/<name>.episodes.jsonl` (full transcripts) and `results/<name>.summary.json`;
+`make_figures.py` refuses to draw with any stage missing and writes byte-stable PDFs.
 
 ## Notes
 

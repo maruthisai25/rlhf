@@ -76,6 +76,19 @@ tool and `get_reward` as the reward source; tool-result tokens are masked from t
 | max completion | 1024 | 768 |
 | wall time | 39 min | 18 min |
 
+Exact commands (also stages 3a/3b of `scripts/run_all.sh`; the trainer's defaults equal run 1):
+
+```
+# run 1
+scripts/train_grpo.py --adapter runs/sft/final --split tasks/train.jsonl --out runs/grpo \
+    --steps 50 --num-gens 8 --gen-batch 16 --micro-batch 2 --judge-weight 0.3 --max-iters 6 \
+    --max-completion 1024 --lr 2e-5 --beta 0 --loss-type dapo --scale-rewards group --reward-version v1
+# run 2
+scripts/train_grpo.py --adapter runs/sft/final --split tasks/grpo_mix.jsonl --out runs/grpo2 \
+    --steps 40 --num-gens 8 --gen-batch 16 --micro-batch 2 --judge-weight 0.3 --max-iters 6 \
+    --max-completion 768 --lr 1e-5 --beta 0.02 --loss-type dr_grpo --scale-rewards none --reward-version v2
+```
+
 In the language of the RL you already know: the whole trajectory is one "action", the
 reward is terminal, and GRPO replaces the critic with the group mean as baseline. The
 per-token PPO ratio is clipped at ε = 0.2. Dividing by the group standard deviation is what
@@ -172,16 +185,16 @@ Vulkan judge out of VRAM and slows it 200×; stages therefore run one at a time.
 ## 7. Reproducibility
 
 ```
-scripts/gen_tasks.py --validate            # tasks/train.jsonl, tasks/test.jsonl
-scripts/gen_tasks.py --hard --validate     # composite tasks (raw)
-scripts/filter_hard.py                     # teacher-filtered hard splits + grpo_mix
-scripts/make_sft_data.py                   # data/sft.jsonl
-scripts/train_sft.py                       # runs/sft/final
-scripts/train_grpo.py --adapter runs/sft/final --split tasks/grpo_mix.jsonl \
-    --loss-type dr_grpo --scale-rewards none --reward-version v2 --beta 0.02 --lr 1e-5
-scripts/run_benchmark.py --name X --adapter runs/sft/final,runs/grpo2/final --batch 32
-scripts/make_figures.py                    # figures/*.png|pdf, results_table.md
+FRESH=1 bash scripts/run_all.sh            # wipes derived artefacts, then runs every stage in order:
+                                           #   gen_tasks (+ --hard, filter_hard) -> base benchmarks ->
+                                           #   make_sft_data -> train_sft -> SFT benchmarks ->
+                                           #   train_grpo run 1 + benchmarks -> run 2 + benchmarks ->
+                                           #   compare.py -> make_figures.py (figures/, results_table.md)
 ```
+
+Without `FRESH=1` every stage is skipped because all outputs are committed. `make_figures.py`
+refuses to draw if any stage's results are missing, and writes timestamp-free PDFs so a
+regeneration from unchanged results is byte-identical.
 
 Software: torch 2.14 (cu130), transformers 5.17, TRL 1.13, PEFT 0.21, llama.cpp b9401
 (Vulkan). Full per-episode transcripts for every row of Table 1 are in
