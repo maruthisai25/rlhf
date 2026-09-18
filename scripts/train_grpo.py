@@ -18,7 +18,8 @@ How this maps onto the RL you already know
   the loss; only the model's own tokens receive the policy-gradient signal.
 * beta=0: no KL penalty against a reference model (saves memory; LoRA already limits drift).
 
-    python scripts/train_grpo.py --adapter runs/sft/final --out runs/grpo --steps 80
+    python scripts/train_grpo.py --adapter runs/sft/final --out runs/grpo          # = run 1
+    (run 2's flags: scripts/run_all.sh, stage 3b)
 """
 import argparse
 import os
@@ -41,10 +42,11 @@ ap.add_argument("--model", default="Qwen/Qwen3.5-0.8B")
 ap.add_argument("--adapter", default=None, help="SFT LoRA adapter to merge before RL")
 ap.add_argument("--split", default="tasks/train.jsonl")
 ap.add_argument("--out", default="runs/grpo")
-ap.add_argument("--steps", type=int, default=80)
+# Defaults reproduce GRPO run 1 exactly (see scripts/run_all.sh for both runs' full commands).
+ap.add_argument("--steps", type=int, default=50)
 ap.add_argument("--num-gens", type=int, default=8)
-ap.add_argument("--gen-batch", type=int, default=32, help="rollouts per generation round (multiple of num-gens)")
-ap.add_argument("--micro-batch", type=int, default=8)
+ap.add_argument("--gen-batch", type=int, default=16, help="rollouts per generation round (multiple of num-gens)")
+ap.add_argument("--micro-batch", type=int, default=2)
 ap.add_argument("--lr", type=float, default=2e-5)
 ap.add_argument("--rank", type=int, default=32)
 ap.add_argument("--judge-weight", type=float, default=0.3)
