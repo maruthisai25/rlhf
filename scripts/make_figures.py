@@ -74,7 +74,9 @@ STAGES = OrderedDict([
     ("2_grpo", "GRPO run 1"),
     ("3_grpo2", "GRPO run 2"),
 ])
-HARD = {"0_base": None, "1_sft": "1_sft_hard", "2_grpo": "2_grpo_hard", "3_grpo2": "3_grpo2_hard"}
+HARD = {"0_base": "0_base_hard", "1_sft": "1_sft_hard", "2_grpo": "2_grpo_hard", "3_grpo2": "3_grpo2_hard"}
+# Every stage above must have results; a missing one is an error, not a placeholder.
+REQUIRED = list(STAGES) + list(HARD.values())
 
 
 def strip(ax, y=True):
@@ -97,16 +99,29 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float, float]:
     return p, centre - half, centre + half
 
 
-def episodes(name: str) -> list[dict]:
-    p = RES / f"{name}.episodes.jsonl"
+def _require(p: Path) -> Path:
     if not p.exists():
-        return []
-    return [json.loads(l) for l in open(p, encoding="utf-8")]
+        raise FileNotFoundError(f"{p} is missing. Run the corresponding stage of scripts/run_all.sh first.")
+    return p
 
 
-def summary(name: str) -> dict | None:
-    p = RES / f"{name}.summary.json"
-    return json.load(open(p)) if p.exists() else None
+def episodes(name: str) -> list[dict]:
+    p = _require(RES / f"{name}.episodes.jsonl")
+    eps = [json.loads(l) for l in open(p, encoding="utf-8")]
+    if not eps:
+        raise ValueError(f"{p} has no episodes")
+    return eps
+
+
+def summary(name: str) -> dict:
+    return json.load(open(_require(RES / f"{name}.summary.json")))
+
+
+def check_inputs() -> None:
+    missing = [n for n in REQUIRED if not (RES / f"{n}.episodes.jsonl").exists() or not (RES / f"{n}.summary.json").exists()]
+    missing += [f"logs/{n}" for n in ("train_sft.log", "train_grpo.log", "train_grpo2.log") if not (LOGS / n).exists()]
+    if missing:
+        raise SystemExit("make_figures: missing inputs, refusing to draw partial figures:\n  " + "\n  ".join(missing))
 
 
 def mean_ci(xs: list[float]) -> tuple[float, float]:
@@ -119,8 +134,10 @@ def mean_ci(xs: list[float]) -> tuple[float, float]:
 
 
 def save(fig, name: str):
-    for ext in ("png", "pdf"):
-        fig.savefig(OUT / f"{name}.{ext}", dpi=300 if ext == "png" else None, bbox_inches="tight", pad_inches=0.08)
+    fig.savefig(OUT / f"{name}.png", dpi=300, bbox_inches="tight", pad_inches=0.08)
+    # No timestamps in the PDF so regenerating from unchanged results is byte-identical.
+    fig.savefig(OUT / f"{name}.pdf", bbox_inches="tight", pad_inches=0.08,
+                metadata={"CreationDate": None, "ModDate": None})
     plt.close(fig)
     print("wrote", OUT / f"{name}.png")
 
@@ -139,12 +156,7 @@ def fig_pass_rate():
     ]
     for j, (series, key_fn, color) in enumerate(series_defs):
         for i, key in enumerate(STAGES):
-            name = key_fn(key)
-            eps = episodes(name) if name else []
-            if not eps:
-                ax.text(x[i] + (j - 0.5) * (w + 0.02), 0.015, "not\nmeasured", ha="center", va="bottom",
-                        fontsize=6.5, color=MUTED)
-                continue
+            eps = episodes(key_fn(key))
             k = sum(e["result"]["passed"] for e in eps)
             p, lo, hi = wilson(k, len(eps))
             ax.bar(x[i] + (j - 0.5) * (w + 0.02), p, w, color=color, zorder=3)
@@ -211,12 +223,10 @@ def fig_secondary():
 def fig_heatmap():
     keys = list(STAGES)
     sums = [summary(k) for k in keys]
-    cats = sorted({c for s in sums if s for c in s["by_category"]})
+    cats = sorted({c for s in sums for c in s["by_category"]})
     M = np.full((len(cats), len(keys)), np.nan)
     N = np.zeros_like(M)
     for j, s in enumerate(sums):
-        if not s:
-            continue
         for i, c in enumerate(cats):
             if c in s["by_category"]:
                 M[i, j] = s["by_category"][c]["pass_rate"]
@@ -257,9 +267,7 @@ def fig_heatmap():
 # ---- Figure 4: SFT curves -----------------------------------------------------------------
 def parse_dicts(path: Path) -> list[dict]:
     rows = []
-    if not path.exists():
-        return rows
-    for line in open(path, errors="replace"):
+    for line in open(_require(path), errors="replace"):
         for m in re.finditer(r"\{\x27(?:loss|eval_loss)\x27.*?\}", line):
             try:
                 rows.append(ast.literal_eval(m.group(0)))
@@ -272,16 +280,14 @@ def fig_sft():
     rows = parse_dicts(LOGS / "train_sft.log")
     tr = [(float(r["epoch"]), float(r["loss"])) for r in rows if "loss" in r]
     ev = [(float(r["epoch"]), float(r["eval_loss"])) for r in rows if "eval_loss" in r]
-    if not tr:
-        print("no SFT log; skipping fig4")
-        return
+    if not tr or not ev:
+        raise ValueError("logs/train_sft.log has no loss / eval_loss records")
     fig, ax = plt.subplots(figsize=(5.0, 3.0))
     ax.plot([e for e, _ in tr], [l for _, l in tr], color=SERIES[0], lw=2, solid_capstyle="round", label="Training loss")
-    if ev:
-        ax.plot([e for e, _ in ev], [l for _, l in ev], color=SERIES[1], lw=0, marker="o", ms=6,
-                markeredgecolor=SURFACE, markeredgewidth=2, label="Eval loss (end of epoch)")
-        for e, l in ev:
-            ax.text(e + 0.04, l - 0.006, f"{l:.3f}", ha="left", va="top", fontsize=7.5, color=INK2)
+    ax.plot([e for e, _ in ev], [l for _, l in ev], color=SERIES[1], lw=0, marker="o", ms=6,
+            markeredgecolor=SURFACE, markeredgewidth=2, label="Eval loss (end of epoch)")
+    for e, l in ev:
+        ax.text(e + 0.04, l - 0.006, f"{l:.3f}", ha="left", va="top", fontsize=7.5, color=INK2)
     ax.set_xlabel("Epoch")
     ax.set_ylabel("Token cross-entropy (assistant tokens only)")
     ax.set_title("Supervised fine-tuning on 320 teacher trajectories", loc="left")
@@ -294,23 +300,20 @@ def fig_sft():
 # ---- Figure 5: GRPO dynamics run 1 vs run 2 ------------------------------------------------
 def parse_grpo(path: Path) -> list[dict]:
     rows = []
-    if not path.exists():
-        return rows
-    for line in open(path, errors="replace"):
+    for line in open(_require(path), errors="replace"):
         for m in re.finditer(r"\{\x27loss\x27.*?\}", line):
             try:
                 rows.append(ast.literal_eval(m.group(0)))
             except Exception:
                 pass
+    if not rows:
+        raise ValueError(f"{path} has no per-step training records")
     return rows
 
 
 def fig_grpo():
     r1 = parse_grpo(LOGS / "train_grpo.log")
     r2 = parse_grpo(LOGS / "train_grpo2.log")
-    if not r1 and not r2:
-        print("no GRPO logs; skipping fig5")
-        return
     fig, axes = plt.subplots(1, 3, figsize=(9.0, 2.9))
     panels = [
         ("Mean completion length (tokens)", "completions/mean_length", None, False),
@@ -323,8 +326,6 @@ def fig_grpo():
     for ax, (title, key, ylim, smooth) in zip(axes, panels):
         for label, rows, color in runs:
             ys = [float(r[key]) for r in rows if key in r]
-            if not ys:
-                continue
             xs = np.arange(1, len(ys) + 1)
             if smooth:
                 sm = np.convolve(ys, np.ones(k) / k, mode="valid")
@@ -354,23 +355,20 @@ def fig_grpo():
 def write_table():
     rows = []
     for key, label in STAGES.items():
-        s = summary(key)
-        h = summary(HARD[key]) if HARD[key] else None
-        eps = episodes(key)
-        k = sum(e["result"]["passed"] for e in eps)
-        p, lo, hi = wilson(k, len(eps)) if eps else (0, 0, 0)
-        heps = episodes(HARD[key]) if HARD[key] else []
-        hk = sum(e["result"]["passed"] for e in heps)
-        hp, hlo, hhi = wilson(hk, len(heps)) if heps else (None, None, None)
+        s, h = summary(key), summary(HARD[key])
+        eps, heps = episodes(key), episodes(HARD[key])
+        p, lo, hi = wilson(sum(e["result"]["passed"] for e in eps), len(eps))
+        hp, hlo, hhi = wilson(sum(e["result"]["passed"] for e in heps), len(heps))
+        fmt_judge = lambda d: f"{d['mean_judge']:.2f}" if d.get("mean_judge") is not None else "-"  # noqa: E731
         rows.append({
             "stage": label.replace("\n", " "),
             "easy_pass": f"{100*p:.1f}% [{100*lo:.0f}, {100*hi:.0f}]",
-            "easy_calls": f"{s['mean_calls']:.2f}" if s else "-",
-            "easy_finish": f"{100*s['finished_cleanly_rate']:.0f}%" if s else "-",
-            "easy_judge": f"{s['mean_judge']:.2f}" if s and s.get("mean_judge") is not None else "-",
-            "hard_pass": f"{100*hp:.1f}% [{100*hlo:.0f}, {100*hhi:.0f}]" if hp is not None else "not measured",
-            "hard_calls": f"{h['mean_calls']:.2f}" if h else "-",
-            "hard_judge": f"{h['mean_judge']:.2f}" if h and h.get("mean_judge") is not None else "-",
+            "easy_calls": f"{s['mean_calls']:.2f}",
+            "easy_finish": f"{100*s['finished_cleanly_rate']:.0f}%",
+            "easy_judge": fmt_judge(s),
+            "hard_pass": f"{100*hp:.1f}% [{100*hlo:.0f}, {100*hhi:.0f}]",
+            "hard_calls": f"{h['mean_calls']:.2f}",
+            "hard_judge": fmt_judge(h),
         })
     hdr = "| Stage | Easy pass [95% CI] | Calls | Final msg | Judge | Hard pass [95% CI] | Calls | Judge |\n|---|---|---|---|---|---|---|---|\n"
     body = "".join(f"| {r['stage']} | {r['easy_pass']} | {r['easy_calls']} | {r['easy_finish']} | {r['easy_judge']} | {r['hard_pass']} | {r['hard_calls']} | {r['hard_judge']} |\n" for r in rows)
@@ -379,6 +377,7 @@ def write_table():
 
 
 if __name__ == "__main__":
+    check_inputs()
     fig_pass_rate()
     fig_secondary()
     fig_heatmap()
