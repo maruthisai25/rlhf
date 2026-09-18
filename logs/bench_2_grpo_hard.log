@@ -1,0 +1,67 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:  18%|█▊        | 59/320 [00:00<00:00, 584.53it/s]Loading weights:  71%|███████   | 227/320 [00:00<00:00, 1217.00it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 1261.58it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+fail htest_0027_tail_lines+dir_sizes  calls= 1 r=+0.10  19.3s
+PASS htest_0005_head_lines+chmod_exec calls= 2 r=+1.08  26.3s
+PASS htest_0006_move_file+word_freq   calls= 2 r=+1.08  26.6s
+PASS htest_0002_concat+delete_pattern calls= 2 r=+1.08  27.0s
+PASS htest_0004_mkdir_tree+replace_text calls= 2 r=+1.08  27.3s
+PASS htest_0009_chmod_exec+cut_field  calls= 2 r=+1.08  28.3s
+PASS htest_0007_rename_ext+grep_count calls= 2 r=+1.08  28.6s
+PASS htest_0011_chmod_exec+cut_field  calls= 2 r=+1.08  29.2s
+PASS htest_0012_mkdir_tree+delete_pattern calls= 2 r=+1.08  29.6s
+PASS htest_0016_empty_files+gzip_file calls= 2 r=+1.08  29.9s
+fail htest_0017_cut_field+replace_text calls= 2 r=+0.08  30.4s
+PASS htest_0021_copy_file+gzip_file   calls= 2 r=+1.08  30.9s
+PASS htest_0023_symlink+mkdir_tree    calls= 2 r=+1.08  31.2s
+PASS htest_0030_tail_lines+grep_count calls= 2 r=+1.08  31.8s
+PASS htest_0010_count_words+tar_extract calls= 3 r=+1.06  40.8s
+fail htest_0003_word_freq+mkdir_tree  calls= 3 r=+0.06  41.1s
+PASS htest_0000_tar_create+reverse_lines calls= 3 r=+1.06  41.3s
+PASS htest_0013_reverse_lines+char_count calls= 3 r=+1.06  42.3s
+fail htest_0014_dir_sizes+reverse_lines calls= 3 r=+0.06  42.6s
+PASS htest_0018_delete_pattern+json_extract calls= 3 r=+1.06  43.2s
+PASS htest_0019_tar_extract+json_extract calls= 3 r=+1.06  43.5s
+PASS htest_0020_count_words+cut_field calls= 3 r=+1.06  43.9s
+PASS htest_0022_max_number+replace_text calls= 3 r=+1.06  44.5s
+PASS htest_0024_copy_file+grep_count  calls= 3 r=+1.06  45.0s
+PASS htest_0025_count_lines+rename_ext calls= 3 r=+1.06  45.5s
+fail htest_0026_cut_field+symlink     calls= 1 r=+0.10  43.5s
+PASS htest_0029_delete_pattern+char_count calls= 3 r=+1.06  44.0s
+PASS htest_0031_gzip_file+find_largest calls= 3 r=+1.06  44.1s
+PASS htest_0028_find_largest+reverse_lines calls= 4 r=+1.04  48.2s
+PASS htest_0015_line_number_match+reverse_lines calls= 4 r=+1.04  48.4s
+PASS htest_0034_concat+sort_unique    calls= 2 r=+1.08  36.8s
+fail htest_0035_gzip_file+dir_sizes   calls= 2 r=+0.08  37.0s
+PASS htest_0033_gzip_file+delete_pattern calls= 2 r=+1.08  37.7s
+fail htest_0032_tar_create+count_words calls= 3 r=+0.06  45.5s
+PASS htest_0037_replace_text+gzip_file calls= 2 r=+1.08  38.8s
+PASS htest_0042_mkdir_tree+count_files_ext calls= 2 r=+1.08  39.3s
+PASS htest_0043_copy_file+tar_extract calls= 2 r=+1.08  39.3s
+PASS htest_0040_sort_unique+find_by_content calls= 3 r=+1.06  47.8s
+PASS htest_0038_mkdir_tree+char_count calls= 3 r=+1.06  47.9s
+PASS htest_0039_line_number_match+delete_pattern calls= 3 r=+1.06  48.6s
+PASS htest_0036_find_by_content+replace_text calls= 3 r=+1.06  49.0s
+PASS htest_0041_sort_unique+count_words calls= 3 r=+1.06  49.6s
+fail htest_0044_find_largest+chmod_exec calls= 3 r=+0.06  47.6s
+PASS htest_0045_count_lines+sort_unique calls= 3 r=+1.06  48.0s
+PASS htest_0046_head_lines+symlink    calls= 2 r=+1.08  34.1s
+fail htest_0008_gzip_file+word_freq   calls= 7 r=-0.02  85.5s
+fail htest_0001_symlink+dir_sizes     calls= 7 r=-0.02  86.0s
+PASS htest_0047_count_words+symlink   calls= 3 r=+1.06  46.0s
+{
+  "n": 48,
+  "pass_rate": 0.7917,
+  "mean_reward": 0.8575,
+  "mean_calls": 2.71,
+  "finished_cleanly_rate": 1.0,
+  "errors": 0,
+  "mean_judge": 0.8021,
+  "seconds": 1962.9,
+  "by_difficulty": {},
+  "name": "2_grpo_hard",
+  "backend": "Qwen/Qwen3.5-0.8B+runs/sft/final,runs/grpo/final",
+  "wall_seconds": 86.1
+}
+by category: {"composite": {"n": 48, "pass_rate": 0.792}}
