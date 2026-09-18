@@ -1,0 +1,10 @@
+# Installed into the WSL venv at ~/rlhf/.venv (Python 3.12). Versions that were verified working:
+#   torch 2.14.0+cu130, transformers 5.17.0, trl 1.13.0, peft 0.21.0
+torch
+transformers>=5
+trl>=1.13
+peft
+datasets
+accelerate
+huggingface_hub
+flash-linear-attention

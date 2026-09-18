@@ -1,0 +1,15 @@
+# environments
+.venv/
+__pycache__/
+*.pyc
+
+# training checkpoints (final adapters in runs/*/final are kept)
+runs/*/checkpoint-*/
+runs/*/README.md
+
+# transient logs
+logs/pipeline_*.log
+
+# scratch
+tmp/
+*.incomplete
