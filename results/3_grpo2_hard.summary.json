@@ -1,0 +1,20 @@
+{
+  "n": 48,
+  "pass_rate": 0.8333,
+  "mean_reward": 0.8988,
+  "mean_calls": 2.73,
+  "finished_cleanly_rate": 1.0,
+  "errors": 0,
+  "mean_judge": 0.8417,
+  "seconds": 1063.8,
+  "by_category": {
+    "composite": {
+      "n": 48,
+      "pass_rate": 0.833
+    }
+  },
+  "by_difficulty": {},
+  "name": "3_grpo2_hard",
+  "backend": "Qwen/Qwen3.5-0.8B+runs/sft/final,runs/grpo2/final",
+  "wall_seconds": 41.0
+}
